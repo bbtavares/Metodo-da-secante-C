@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <locale.h>
+#include <math.h>
+
+int main(void)
+{
+  /**************VARIÁVEIS*********************/
+  float x0, x1, x,f1, f2, p; 
+  int n=0;
+  char ch;
+/**********************************************/
+
+  setlocale(LC_ALL, "Portuguese"); //permite acentuação
+
+/**********APRESENTAÇÃO DO EXERCÍCIO*********/
+  printf("Seja f(x) = x³ − 9x + 3, encontre a raiz compreendida no intervalo [0, 1] usando o erro absoluto desejado.\n\n");
+/**********************************************/
+
+/******ÁREA DE IMPLEMENTAÇÃO DO MÉTODO********/
+  do{
+      /*******ÁREA DE INTERAÇÃO COM USUÁRIO*********/
+      printf("Insira a precisão dejada para o método: ");
+      scanf("%f", &p);
+      printf("Insira o valor inicial x_0: ");
+      scanf("%f", &x0);
+      printf("Insira o valor inicial x_1: ");
+      scanf("%f", &x1); 
+      printf("\n");  
+    /*********************************************/
+
+      if(x0>=0 && x1<=1 && x0<x1)
+      {
+        while(fabs(x1-x0)>p)
+        {
+          f1 = pow(x1,3)-9*x1+3;
+          f2 = pow(x0,3)-9*x0+3;
+
+          printf("Função 1: %f \t Função 2: %f \n",f1,f2);
+          //sleep(3);
+          x = (x0*f1-x1*f2)/(f1-f2);
+
+          x0=x1;
+          x1=x;
+
+          printf("%i Iteração: %.10f\n\n", n,x);
+          n++;
+        }
+    
+      }else
+        {
+          printf("Os valores não correspondem a um intervalo válido. \nTente novamente.\n");
+          n=1;
+        }
+
+      printf("Total de iterações feitas: %i\n\n", n-1); 
+
+      printf("Deseja continuar s/n ");
+      scanf("%s", &ch);
+
+    }while(ch=='s'|| ch =='S');
+  /********************************************/
+  return 0;
+}
